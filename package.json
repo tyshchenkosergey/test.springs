@@ -1,0 +1,19 @@
+{
+  "name": "test.springs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tyshchenkosergey/test.springs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tyshchenkosergey/test.springs/issues"
+  },
+  "homepage": "https://github.com/tyshchenkosergey/test.springs#readme"
+}
