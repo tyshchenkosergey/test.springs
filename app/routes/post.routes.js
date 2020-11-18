@@ -7,11 +7,11 @@ module.exports = (app) => {
   // Create a new post
   app.post('/posts', verify, posts.create);
 
-  // Get all posts
-  app.get('/posts', verify, posts.getAll);
+  // Get all posts with pagination of 10 posts per page
+  app.get('/posts/list/:pageNum([0-9])', posts.list);
 
   // Get a single post
-  app.get('/posts/:post_id', verify, posts.getById);
+  app.get('/posts/:post_id', posts.getById);
 
   // Update a single post
   app.put('/posts/:post_id', verify, isPostOwner, posts.update);

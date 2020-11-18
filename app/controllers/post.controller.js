@@ -42,9 +42,11 @@ exports.create = async (req, res) => {
     });
 };
 
-// INDEX
-exports.getAll = (req, res) => {
+// INDEX WITH PAGINATION
+exports.list = (req, res) => {
   Post.find()
+    .skip(req.params.pageNum * 2)
+    .limit(2)
     .then((post) => {
       res.send(post);
     })

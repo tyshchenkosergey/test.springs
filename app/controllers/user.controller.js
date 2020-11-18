@@ -61,8 +61,7 @@ exports.login = async (req, res) => {
 exports.profileEdit = (req, res) => {
   User.findByIdAndUpdate(req.params.user_id, {
     username: req.body.username,
-    title: req.body.title,
-    body: req.body.body,
+    email: req.body.email,
     password: req.body.password,
     phone: req.body.phone,
     linkedIn: req.body.linkedIn,
