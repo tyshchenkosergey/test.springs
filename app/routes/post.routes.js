@@ -18,4 +18,7 @@ module.exports = (app) => {
 
   // Delete a single post
   app.delete('/posts/:post_id', verify, isPostOwner, posts.delete);
+
+  //Search by post name or body
+  app.get('/posts/search/:search_text', posts.search);
 };

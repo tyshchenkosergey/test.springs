@@ -3,11 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const expressSanitizer = require('express-sanitizer');
 
 // Config
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(expressSanitizer());
 
 // Connecting to the database
 mongoose
@@ -34,6 +36,7 @@ app.get('/', (req, res) => {
 //import routes
 require('./app/routes/post.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/stat.routes')(app);
 
 // listen for requests
 const port = process.env.PORT || 3000;

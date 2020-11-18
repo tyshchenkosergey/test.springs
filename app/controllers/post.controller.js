@@ -1,7 +1,7 @@
 const Post = require('../models/post.model');
 
 // CREATE
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
   if (!req.body.title) {
     return res.status(400).send({
@@ -12,15 +12,21 @@ exports.create = (req, res) => {
       message: 'Please add post content.',
     });
   }
+  //is title used?
+  const titleIsUsed = await Post.findOne({ title: req.body.title });
+  if (titleIsUsed) return res.status(400).send('Title is already in use');
+
   //author info
   let author = {
     id: req.user._id,
   };
   // Create a post
+  req.body.body = req.sanitize(req.body.body);
   const post = new Post({
     author: author,
     title: req.body.title,
     body: req.body.body,
+    dateAdded: Date.parse(req.body.dateAdded),
   });
 
   // Save post
@@ -89,6 +95,7 @@ exports.update = (req, res) => {
   }
 
   // Find post and update it
+  req.body.body = req.sanitize(req.body.body);
   Post.findByIdAndUpdate(
     req.params.post_id,
     {
@@ -140,6 +147,20 @@ exports.delete = (req, res) => {
         message:
           'Some error occurred while deleting the post with post_id' +
           req.params.post_id,
+      });
+    });
+};
+
+//SEARCH
+exports.search = (req, res) => {
+  let regex = new RegExp(req.params.search_text, 'i');
+  Post.find({ $or: [{ title: regex }, { body: regex }] })
+    .then((post) => {
+      res.send(post);
+    })
+    .catch((err) => {
+      return res.status(404).send({
+        message: `Post with ${req.body.search_text} have not been found`,
       });
     });
 };

@@ -5,17 +5,20 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     min: 2,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
     min: 6,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
     max: 32,
     min: 6,
+    trim: true,
   },
   phone: {
     type: Number,
@@ -38,15 +41,15 @@ const userSchema = mongoose.Schema({
       message: 'The URL is not valid',
     },
   },
-  zip_code:{
-      type:Number,
-      validate: {
-        validator: function (v) {
-          return /^\d{5}(?:[-\s]\d{4})?$/.test(v);
-        },
-        message: 'Wrong zip-code format',
+  zip_code: {
+    type: Number,
+    validate: {
+      validator: function (v) {
+        return /^\d{5}(?:[-\s]\d{4})?$/.test(v);
       },
-  }
+      message: 'Wrong zip-code format',
+    },
+  },
 });
 
 module.exports = mongoose.model('User', userSchema);
